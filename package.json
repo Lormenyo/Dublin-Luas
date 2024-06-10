@@ -1,0 +1,15 @@
+{
+  "name": "dublin-luas-api",
+  "version": "1.0.0",
+  "description": "API for the Dublin Luas real time schedule",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hannah Lormenyo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
