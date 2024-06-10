@@ -1,9 +1,8 @@
-# Dublin Luas Mobile Application
+# Dublin Luas API
 
-## Backend
+## Stack
 Built with Below Stack:
 - Node
 - Express
 
-## Frontend
-- Built with Flutter and Dart =)
+
