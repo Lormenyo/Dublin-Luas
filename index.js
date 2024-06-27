@@ -2,6 +2,7 @@ import express, { response } from "express";
 import dotenv from "dotenv";
 import axios from "axios";
 import { toJson } from "xml2json";
+import fs from "fs";
 
 const app = express();
 dotenv.config();
@@ -56,7 +57,14 @@ app.get("/stopLocations", async (req, res) => {
         const URL = `${BASE_URL}?action=stops&encrypt=false`;
         const response = await axios.get(URL);
         const data = JSON.parse(toJson(response.data));
-     
+
+        fs.writeFile("stopLocations.json", JSON.stringify(data), (error) => {
+            if (error) {
+              console.error(error);
+              throw error;
+            }
+        });
+        
         res.status(200).send(data);
     } catch (error) {
         console.log(error);
