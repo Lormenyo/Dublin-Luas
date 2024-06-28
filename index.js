@@ -3,9 +3,12 @@ import dotenv from "dotenv";
 import axios from "axios";
 import { toJson } from "xml2json";
 import fs from "fs";
+import morgan from "morgan";
 
 const app = express();
 dotenv.config();
+
+app.use(morgan('combined'))
 
 const port = process.env.PORT;
 const BASE_URL = "http://luasforecasts.rpa.ie/xml/get.ashx";
