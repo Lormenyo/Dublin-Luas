@@ -15,7 +15,7 @@ app.get("/", (req, res)=>{
     res.send("REST-ful API for getting realtime data for Dublin green and red lines luas schedule and fares");
 });
 
-// TODO: get stop information
+// get stop information
 app.get("/stop/:stopAbv", async (req, res) => {
     try {
         const stopAbv = req.params.stopAbv;
@@ -31,7 +31,7 @@ app.get("/stop/:stopAbv", async (req, res) => {
    
 });
 
-// TODO: get fares
+// get fares
 app.get("/fareCalculator", async (req, res) => {
     try {
         const from = req.query.from;
@@ -64,7 +64,7 @@ app.get("/stopLocations", async (req, res) => {
               throw error;
             }
         });
-        
+
         res.status(200).send(data);
     } catch (error) {
         console.log(error);
@@ -74,7 +74,49 @@ app.get("/stopLocations", async (req, res) => {
 });
 
 // TODO: get news
+app.get("/travelNews", async (req, res) => {
+    try {
+        const URL = `${BASE_URL}?action=stops&encrypt=false`;
+        const response = await axios.get(URL);
+        const data = JSON.parse(toJson(response.data));
+        
+        res.status(200).send(data);
+    } catch (error) {
+        console.log(error);
+        res.status(404).send(error.response.data);
+    }
+   
+});
 
+// Get Status
+app.get("/status", async (req, res) => {
+    try {
+        const greenLineStop = "HAR";
+        const redLineStop = "ABB";
+        const greenLineStatus = await getLuasLineStatus(greenLineStop);
+        const redLineStatus = await getLuasLineStatus(redLineStop);
+     
+        res.status(200).send(`${greenLineStatus} \n ${redLineStatus}`);
+    } catch (error) {
+        console.log(error);
+        res.status(404).send(error.response.data);
+    }
+   
+});
+
+async function getLuasLineStatus(stop) {
+    try {
+    const URL = `${BASE_URL}?action=forecast&stop=${stop}&encrypt=false`;
+    const response = await axios.get(URL);
+    const data = JSON.parse(toJson(response.data));
+    const message = data["stopInfo"]["message"];
+    
+    return message;
+} catch (error) {
+    console.log(error);
+    res.status(404).send(error);
+}
+}
 
 
 app.listen(port, ()=>{
