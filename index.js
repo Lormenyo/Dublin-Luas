@@ -78,19 +78,19 @@ app.get("/stop/:stopAbv", async (req, res) => {
  *     summary: Fare Calculator
  *     parameters:
  *     - name: from
- *       in: path
+ *       in: query
  *       description: Abbreviated stop name of source stop
  *       required: true
  *     - name: to
- *       in: path
+ *       in: query
  *       description: Abbreviated stop name of destination stop
  *       required: true
  *     - name: adults
- *       in: path
+ *       in: query
  *       description: Number of adults making the journey
  *       required: true
  *     - name: children
- *       in: path
+ *       in: query
  *       description: Number of children making the journey
  *       required: true
  *     description: Calculates and returns the fare for an adult/child from one stop to another on the red or green line
